@@ -82,11 +82,9 @@
     <Compile Include="Publishing\Service\ItemEvents\ItemOperationEmitter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Config\Include\zzz\Sitecore.Support.40959.config" />
     <None Include="packages.config" />
     <None Include="web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App_Config\Include\zzz\Sitecore.Support.40959.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
