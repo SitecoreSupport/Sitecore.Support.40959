@@ -44,9 +44,11 @@
   <ItemGroup>
     <Reference Include="Sitecore.Framework.Publishing.Abstractions">
       <HintPath>..\..\lib\Sitecore.Framework.Publishing.Abstractions.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Sitecore.Framework.Publishing.Common">
       <HintPath>..\..\lib\Sitecore.Framework.Publishing.Common.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Sitecore.Kernel, Version=11.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SC.Sitecore.Kernel.9.0.1\lib\Sitecore.Kernel.dll</HintPath>
@@ -54,18 +56,22 @@
     </Reference>
     <Reference Include="Sitecore.Publishing.Service">
       <HintPath>..\..\lib\Sitecore.Publishing.Service.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Reactive.Core">
       <HintPath>..\..\lib\System.Reactive.Core.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Reactive.Interfaces">
       <HintPath>..\..\lib\System.Reactive.Interfaces.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Reactive.Linq">
       <HintPath>..\..\lib\System.Reactive.Linq.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
