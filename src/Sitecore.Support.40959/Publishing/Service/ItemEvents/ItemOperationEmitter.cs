@@ -121,7 +121,7 @@
             data.Restrictions.PublishDate);
       }
 
-      if (data.Restrictions.UnpublishDate != DateTime.MaxValue.ToUniversalTime() && data.Restrictions.UnpublishDate > DateTime.UtcNow)
+      if (data.Restrictions.UnpublishDate != DateTimeOffset.MaxValue.UtcDateTime && data.Restrictions.UnpublishDate > DateTime.UtcNow)
       {
         yield return new PublisherOperation(
             0,
@@ -145,7 +145,7 @@
             data.Restrictions.ValidFrom);
       }
 
-      if (data.Restrictions.ValidTo != DateTime.MaxValue.ToUniversalTime() && data.Restrictions.ValidTo > DateTime.UtcNow)
+      if (data.Restrictions.ValidTo != DateTimeOffset.MaxValue.UtcDateTime && data.Restrictions.ValidTo > DateTime.UtcNow)
       {
         yield return new PublisherOperation(
             0,
