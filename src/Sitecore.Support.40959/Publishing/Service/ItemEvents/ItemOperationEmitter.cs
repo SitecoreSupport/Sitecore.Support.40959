@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.Globalization;
   using System.Linq;
   using System.Reactive.Concurrency;
   using System.Reactive.Linq;
@@ -22,18 +23,50 @@
     private readonly int _eventBufferingWindowMaxMilliseconds;
 
     private readonly TaskCompletionSource<bool> _eventStreamCompletion = new TaskCompletionSource<bool>();
+    private bool _disposedValue;
 
     public ItemOperationEmitter(
-       IPublisherOperationService publisherOpsService,
-       string eventBufferingWindowMaxMilliseconds,
-       string eventBufferingMaxCount)
+        IPublisherOperationService publisherOpsService,
+        string eventBufferingWindowMaxMilliseconds,
+        string eventBufferingMaxCount)
     {
       _scheduler = Scheduler.Default;
       _publisherOpsService = publisherOpsService;
-      _eventBufferingWindowMaxMilliseconds = int.Parse(eventBufferingWindowMaxMilliseconds);
-      _eventBufferingMaxCount = int.Parse(eventBufferingMaxCount);
+      _eventBufferingWindowMaxMilliseconds = int.Parse(eventBufferingWindowMaxMilliseconds, CultureInfo.InvariantCulture);
+      _eventBufferingMaxCount = int.Parse(eventBufferingMaxCount, CultureInfo.InvariantCulture);
 
       Initialize();
+    }
+
+    public void PostOperation(ItemOperationData operationData)
+    {
+      _itemOperationStream.OnNext(operationData);
+    }
+
+    public Task CloseAndFlushAsync()
+    {
+      _itemOperationStream.OnCompleted();
+      return _eventStreamCompletion.Task;
+    }
+
+    public void Dispose()
+    {
+      Dispose(true);
+      GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+      if (!_disposedValue)
+      {
+        if (disposing)
+        {
+        }
+
+        CloseAndFlushAsync().Wait();
+        _itemOperationStream.Dispose();
+        _disposedValue = true;
+      }
     }
 
     private void Initialize()
@@ -68,11 +101,8 @@
                   //3) Persist the operations
                   _publisherOpsService.AddPublisherOperations(dedupedOps.Concat(expandedOps).ToArray());
           },
-          exception =>
-          {
-            _eventStreamCompletion.SetException(exception);
-          },
-          () => { _eventStreamCompletion.SetResult(true); });
+              exception => { _eventStreamCompletion.SetException(exception); },
+              () => { _eventStreamCompletion.SetResult(true); });
     }
 
     private IEnumerable<PublisherOperation> ExpandToConsiderOperations(ItemOperationData data)
@@ -91,7 +121,7 @@
             data.Restrictions.PublishDate);
       }
 
-      if (data.Restrictions.UnpublishDate != DateTimeOffset.MaxValue.UtcDateTime && data.Restrictions.UnpublishDate > DateTime.UtcNow) 
+      if (data.Restrictions.UnpublishDate != DateTime.MaxValue.ToUniversalTime() && data.Restrictions.UnpublishDate > DateTime.UtcNow)
       {
         yield return new PublisherOperation(
             0,
@@ -115,7 +145,7 @@
             data.Restrictions.ValidFrom);
       }
 
-      if (data.Restrictions.ValidTo != DateTimeOffset.MaxValue.UtcDateTime && data.Restrictions.ValidTo > DateTime.UtcNow)
+      if (data.Restrictions.ValidTo != DateTime.MaxValue.ToUniversalTime() && data.Restrictions.ValidTo > DateTime.UtcNow)
       {
         yield return new PublisherOperation(
             0,
@@ -126,22 +156,6 @@
             data.Timestamp,
             data.Restrictions.ValidTo);
       }
-    }
-
-    public void PostOperation(ItemOperationData operationData)
-    {
-      _itemOperationStream.OnNext(operationData);
-    }
-
-    public Task CloseAndFlushAsync()
-    {
-      _itemOperationStream.OnCompleted();
-      return _eventStreamCompletion.Task;
-    }
-
-    public void Dispose()
-    {
-      CloseAndFlushAsync().Wait();
     }
 
     private class ItemOperationUriDeduperComparer : IEqualityComparer<ItemOperationData>
@@ -155,7 +169,10 @@
 
       public bool Equals(ItemOperationData x, ItemOperationData y)
       {
-        if (x == null || y == null) return false;
+        if (x == null || y == null)
+        {
+          return false;
+        }
 
         return _uriComparer.Equals(x.VariantUri, y.VariantUri);
       }

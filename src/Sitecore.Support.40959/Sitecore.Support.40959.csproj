@@ -42,36 +42,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Sitecore.Framework.Publishing.Abstractions, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SPS.Sitecore.Framework.Publishing.Abstractions.2.2.0\lib\Sitecore.Framework.Publishing.Abstractions.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Sitecore.Framework.Publishing.Abstractions">
+      <HintPath>..\..\lib\Sitecore.Framework.Publishing.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.Framework.Publishing.Common, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SPS.Sitecore.Framework.Publishing.Common.2.2.0\lib\Sitecore.Framework.Publishing.Common.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Sitecore.Framework.Publishing.Common">
+      <HintPath>..\..\lib\Sitecore.Framework.Publishing.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.Kernel">
+    <Reference Include="Sitecore.Kernel, Version=11.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SC.Sitecore.Kernel.9.0.1\lib\Sitecore.Kernel.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sitecore.Publishing.Service">
-      <HintPath>..\packages\SPS.Sitecore.Publishing.Service.2.2.0\lib\Sitecore.Publishing.Service.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\lib\Sitecore.Publishing.Service.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\SPS.System.Reactive.Core.2.2.0\lib\System.Reactive.Core.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\..\lib\System.Reactive.Core.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\SPS.System.Reactive.Interfaces.2.2.0\lib\System.Reactive.Interfaces.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\..\lib\System.Reactive.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\SPS.System.Reactive.Linq.2.2.0\lib\System.Reactive.Linq.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\..\lib\System.Reactive.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
